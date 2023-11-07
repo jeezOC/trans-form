@@ -14,12 +14,6 @@ const App = () => {
     console.log(descriptionsObj);
     console.log(initialValuesObj);
 
-    // const combinedData: any = Object.keys(initialValuesObj).reduce((sections: any, sectionKey: any) => {
-    //   const sectionsCopy = sections;
-    //   sectionsCopy[sectionKey] = createSection('AGREGAR LABEL', initialValuesObj[sectionKey], sectionKey, descriptionsObj, initialValuesObj);
-    //   return sectionsCopy;
-    // }, {});
-
     const combinedData: any = createInputs(descriptionsObj, initialValuesObj);
     setMerge(JSON.stringify(combinedData, null, 2));
   }
@@ -73,110 +67,6 @@ const App = () => {
   );
 
 }
-
-
-const createSections = (descriptionsObj: any, valuesObj: any) => {
-
-  const sectionsObj = Object.keys(descriptionsObj).reduce((acumulator: any, itemKey: any) => {
-    const acumulatorCopy = acumulator;
-    const values = valuesObj[itemKey];
-    const descriptions = typeof descriptionsObj[itemKey] === 'object' ? `AGREGAR LABEL PARA ${itemKey}` : descriptionsObj[itemKey];
-
-    return {
-      ...acumulatorCopy,
-      [itemKey]: {
-        ...createInputs(descriptions, values),
-        label: descriptions,
-      }
-
-    }
-  }, {});
-  return sectionsObj
-}
-
-// const createSubsections = (descriptionsObj: any, valuesObj: any) => {
-//   return Object.keys(descriptionsObj).reduce((acumulator: any, itemKey: any) => {
-
-//     const acumulatorCopy = acumulator;
-//     const isObject = typeof descriptionsObj[itemKey] === 'object';
-
-//     const values = valuesObj[itemKey];
-//     const descriptions = isObject ? `AGREGAR LABEL PARA ${itemKey}` : descriptionsObj[itemKey];
-
-//   }, {});
-// }
-// const createInputs = (descriptionsObj: any, valuesObj: any, parentKey?: string) => {
-//   return Object.keys(descriptionsObj).map((itemKey: any) => {
-//     const isObject = typeof descriptionsObj[itemKey] === 'object';
-//     const value = valuesObj[itemKey];
-//     const description = isObject ? `AGREGAR LABEL PARA ${itemKey}` : descriptionsObj[itemKey];
-
-//     if (isObject) {
-//       const subsection = createInputs(descriptionsObj[itemKey], value, itemKey);
-//       return {
-//         label: description,
-//         subsection,
-//       };
-//     } else {
-//       return {
-//         label: description,
-//         value,
-//       };
-//     }
-//   });
-// }
-
-// const createInputs = (descriptionsObj: any, valuesObj: any, parentKey?: string) => {
-//   const inputs = [];
-//   const subsections = [];
-//   const sections = [];
-
-//   Object.keys(descriptionsObj).forEach((itemKey: any) => {
-//     const isObject = typeof descriptionsObj[itemKey] === 'object';
-//     const value = valuesObj[itemKey];
-//     const description = isObject ? `AGREGAR LABEL PARA ${itemKey}` : descriptionsObj[itemKey];
-//     const name = isObject ? itemKey : null;
-
-//     if (isObject) {
-//       const section = createInputs(descriptionsObj[itemKey], value, itemKey);
-//       if (parentKey) {
-//         // const subsection = createInputs(descriptionsObj[itemKey], value, itemKey);
-//         section.push({
-//           name,
-//           label: description,
-//           subsection
-//         });
-//       }else{
-//         const section = createInputs(descriptionsObj[itemKey], value, itemKey);
-//         sections.push({
-//           name,
-//           label: description,
-//           section
-//         });
-//       }
-//       } else {
-//         inputs.push({
-//           name,
-//           label: description,
-//           value,
-//         });
-//       }
-//     });
-
-//   const result = {};
-
-//   if (inputs.length > 0) {
-//     result.inputs = inputs;
-//   }
-
-//   if (subsections.length > 0) {
-//     result.subsections = subsections;
-//   }
-
-//   return result;
-// }
-
-
 
 
 const createInputs = (descriptionsObj: any, valuesObj: any, parentKey?: string) => {
